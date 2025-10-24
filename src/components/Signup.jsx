@@ -1,4 +1,8 @@
+import { useState } from "react";
+
 export default function Signup() {
+
+  const [passwordAreNotEqual, setPasswordAreNotEqual] = useState();
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -7,6 +11,11 @@ export default function Signup() {
     const data = Object.fromEntries(fd.entries());
     data.acquisition = acquisitionChannel;
     console.log(data);
+
+    // accessing with square bracket notation because of the dash present in confirm-password
+    if(data.password !== data['confirm-password']) {
+      setPasswordAreNotEqual(true);
+    }
 
     event.target.reset();
   }
@@ -35,6 +44,7 @@ export default function Signup() {
             name="confirm-password"
             required
           />
+          <div className="control-error">{passwordAreNotEqual && <p>Passwords must match.</p>}</div>
         </div>
       </div>
 
