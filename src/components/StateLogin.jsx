@@ -16,7 +16,7 @@ export default function Login() {
   });
 
   const emailIsInvalid = didEdit.email && !enteredValue.email.includes("@");
-  const passwordIsInvalid = didEdit.password && !enteredValue.password < 6;
+  const passwordIsInvalid = didEdit.password && enteredValue.password.trim().length < 6;
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -62,6 +62,7 @@ export default function Login() {
           name="email"
           onChange={(event) => handleInputChange("email", event.target.value)}
           onBlur={() => handleInputBlur("email")}
+          error={emailIsInvalid && 'Please enter a valid email.'}
         />
 
          <Input
@@ -71,7 +72,7 @@ export default function Login() {
           name="password"
           onChange={(event) => handleInputChange("password", event.target.value)}
           onBlur={() => handleInputBlur("password")}
-          
+          error={passwordIsInvalid && 'Please enter a valid password.'}
         />
       </div>
 
